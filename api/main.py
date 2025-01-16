@@ -11,7 +11,5 @@ app.config['UPLOAD_FOLDER'] = './uploads'
 # Configurar las rutas
 setup_routes(app)
 
-# Required handler for Vercel's serverless environment
-def handler(event, context):
-    from flask_lambda import FlaskLambda
-    return FlaskLambda(app)(event, context)
+if __name__ == "__main__":
+    app.run(debug=True)
