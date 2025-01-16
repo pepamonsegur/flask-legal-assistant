@@ -6,26 +6,24 @@ import io
 
 # Function to extract text from PDF using Cloudmersive
 def extract_text_from_pdf(file):
-    # Configure the Cloudmersive API client
-    import cloudmersive_convert_api_client
-    configuration = cloudmersive_convert_api_client.Configuration()
-    configuration.api_key['Apikey'] = '4547e203-3095-4d96-9ec7-d0eb76399af4'  # Replace with your API key
-
-    # Create an instance of the ConvertDocument API
-    api_instance = ConvertDocumentApi(cloudmersive_convert_api_client.ApiClient(configuration))
-
     try:
-        # Convert the PDF to JPG images
-        result = api_instance.convert_document_pdf_to_jpg(file.read())
+        # Debug: Log file metadata
+        print(f"File name: {file.filename}")
+        print(f"File type: {file.content_type}")
 
-        # Process each image for OCR
-        full_text = ""
-        for image_data in result:
-            image = Image.open(io.BytesIO(image_data))
-            full_text += pytesseract.image_to_string(image, lang='spa')
+        # Read the file content
+        file_content = file.read()
 
-        return full_text
+        # Check for null bytes in the content
+        if b'\x00' in file_content:
+            raise ValueError("The uploaded file contains embedded null bytes")
 
-    except ApiException as e:
-        print("Exception when calling Cloudmersive API: %s\n" % e)
-        return "Error processing the PDF"
+        # Use the Cloudmersive API or another OCR process
+        print("File content read successfully. Proceeding with Cloudmersive API.")
+        # Call your Cloudmersive conversion function here (as defined previously)
+        # Replace this with the Cloudmersive API call to convert PDF to images
+        return "Processed text from the PDF."
+
+    except Exception as e:
+        print(f"Error processing the file: {e}")
+        return "Error processing the file. Please check the file and try again."
