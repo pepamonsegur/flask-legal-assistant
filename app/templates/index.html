@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Assistant</title>
+    <style>
+        /* Estilos generales */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .container {
+            text-align: left;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            font-size: 1em;
+            margin-bottom: 5px;
+            color: #d3d3d3;
+        }
+
+        input[type="file"],
+        input[type="text"],
+        button {
+            width: 93%;
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            background-color: #f8f9fa;
+            color: #333;
+            cursor: pointer;
+        }
+
+        input[type="text"] {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+
+        button {
+            background: #6a11cb;
+            color: white;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #2575fc;
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: left;
+            font-size: 1em;
+            color: #f8f9fa;
+        }
+
+        #result h2 {
+            margin-top: 20px;
+            color: #ffffff;
+        }
+
+        #result p {
+            color: #d3d3d3;
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+      <h1>Resolve tus dudas legales en un clic</h1>
+      <p>
+          Subí un documento legal en formato PDF, escribí tu pregunta de forma clara y específica, y obtené
+          respuestas inmediatas basadas en su contenido.
+      </p>
+      <form id="upload-ask-form">
+          <label for="file">Subí un documento en PDF:  Adjuntá un archivo en formato PDF</label>
+          <input type="file" id="file" name="file" required>
+
+          <label for="question">Escribí tu pregunta: Ejemplo: "¿Me permite este poder firmar contratos?"</label>
+          <input type="text" id="question" name="question" placeholder="Escribí tu pregunta aquí" required>
+
+          <button type="button" onclick="submitForm()">Obtené tu respuesta</button>
+      </form>
+
+      <div id="result"></div>
+  </div>
+
+    <script>
+        async function submitForm() {
+            const form = document.getElementById('upload-ask-form');
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('/upload_and_ask', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.error) {
+                    document.getElementById('result').innerHTML = `<p>Error: ${result.error}</p>`;
+                } else {
+                    document.getElementById('result').innerHTML = `
+                        <h2>Extracted Text:</h2>
+                        <p>${result.text}</p>
+                        <h2>Answer:</h2>
+                        <p>${result.answer}</p>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('result').innerHTML = `<p>An error occurred: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
