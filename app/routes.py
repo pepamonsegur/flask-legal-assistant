@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from utils.ocr import extract_text_from_pdf
 from utils.nlp import answer_question
 
+app = Flask(__name__)
 
 def setup_routes(app):
     @app.route("/")
