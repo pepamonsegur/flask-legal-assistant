@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from api.utils.ocr import extract_text_from_pdf
 from api.utils.nlp import answer_question
-from routes import setup_routes
+from api.routes import setup_routes
 
 app = Flask(__name__)
 
