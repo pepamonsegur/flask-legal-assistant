@@ -2,11 +2,13 @@ from openai import OpenAI
 import os
 
 
-client = os.getenv("OPENAI_API_KEY")
-if not client:
+# Retrieve the OpenAI API key from environment variables
+api_key = os.getenv("OPENAI_API_KEY")
+if not api_key:
     raise ValueError("OPENAI_API_KEY environment variable is not set")
 
-openai.api_key = client
+openai.api_key = api_key  # Correctly set the API key for the OpenAI client
+
 
 
 def answer_question(document_text, question):
@@ -16,7 +18,7 @@ def answer_question(document_text, question):
     ]
 
     # Create a chat completion
-    response = client.chat.completions.create(
+    response = openai.chat.completions.create(
         model="gpt-3.5-turbo",  # Replace with "gpt-4" if you have access
         messages=messages,
         max_tokens=50
