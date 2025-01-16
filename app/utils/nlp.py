@@ -1,9 +1,12 @@
 from openai import OpenAI
 import os
 
-api_key = os.getenv("OPENAI_API_KEY")
-client = OpenAI(api_key)
 
+client = os.getenv("OPENAI_API_KEY")
+if not client:
+    raise ValueError("OPENAI_API_KEY environment variable is not set")
+
+openai.api_key = client
 
 
 def answer_question(document_text, question):
