@@ -1,6 +1,5 @@
-from openai import OpenAI
+import openai
 import os
-
 
 # Retrieve the OpenAI API key from environment variables
 api_key = os.getenv("OPENAI_API_KEY")
@@ -10,7 +9,6 @@ if not api_key:
 openai.api_key = api_key  # Correctly set the API key for the OpenAI client
 
 
-
 def answer_question(document_text, question):
     messages = [
         {"role": "system", "content": "You are a legal assistant. Answer questions based on the provided document."},
@@ -18,20 +16,20 @@ def answer_question(document_text, question):
     ]
 
     # Create a chat completion
-    response = openai.chat.completions.create(
+    response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",  # Replace with "gpt-4" if you have access
         messages=messages,
         max_tokens=50
     )
 
     # Access response data correctly
-    answer = response.choices[0].message.content.strip()
+    answer = response.choices[0].message["content"].strip()
 
     # Monitor and log token usage
-    usage = response.usage  # Token usage details
-    prompt_tokens = usage.prompt_tokens
-    completion_tokens = usage.completion_tokens
-    total_tokens = usage.total_tokens
+    usage = response["usage"]  # Token usage details
+    prompt_tokens = usage["prompt_tokens"]
+    completion_tokens = usage["completion_tokens"]
+    total_tokens = usage["total_tokens"]
 
     # Calculate cost
     cost_per_1k_tokens = 0.002  # $0.002 per 1,000 tokens for gpt-3.5-turbo
