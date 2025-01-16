@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, jsonify
-from utils.ocr import extract_text_from_pdf
-from utils.nlp import answer_question
+from flask import Flask, render_template, request, jsonify, send_from_directory
+from api.utils.ocr import extract_text_from_pdf
+from api.utils.nlp import answer_question
 
 app = Flask(__name__)
 
@@ -51,3 +51,7 @@ def setup_routes(app):
             })
         except Exception as e:
             return jsonify({"error": str(e)}), 500
+
+    @app.route("/favicon.ico")
+    def favicon():
+        return send_from_directory("static", "favicon.ico", mimetype="image/vnd.microsoft.icon")
