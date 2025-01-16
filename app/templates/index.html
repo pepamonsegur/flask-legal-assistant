@@ -1,117 +1,214 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legal Assistant</title>
+    <title>OperAR Legal</title>
     <style>
-        /* Estilos generales */
+        /* General Styles */
         body {
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            height: 100vh;
+            background-color: #fff;
+            color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
+            height: 100vh;
         }
 
         .container {
-            text-align: left;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 20px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        .container-shadow {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+        p {
+            font-size: 1em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         label {
-            display: block;
-            text-align: left;
             font-size: 1em;
-            margin-bottom: 5px;
-            color: #d3d3d3;
+            margin-bottom: 8px;
+            color: #333;
+            text-align: left;
+            width: 100%;
         }
 
         input[type="file"],
-        input[type="text"],
-        button {
-            width: 93%;
-            padding: 15px;
-            border-radius: 10px;
-            border: none;
-            font-size: 1em;
+        input[type="text"]
+        textarea {
+            width: 95%;
+            padding: 12px;
             margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        /* Textarea for Question Input */
+        textarea {
+            width: 95%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+            resize: none; /* Prevent resizing */
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        input[type="file"] {
-            background-color: #f8f9fa;
-            color: #333;
-            cursor: pointer;
-        }
-
-        input[type="text"] {
-            background-color: rgba(255, 255, 255, 0.8);
-            color: #333;
+        textarea:focus {
+            border-color: #007bff;
+            outline: none;
         }
 
         button {
-            background: #6a11cb;
-            color: white;
-            font-weight: bold;
+            background-color: #000;
+            color: #fff;
+            font-size: 1em;
+            padding: 12px 20px;
             width: 100%;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
-            background: #2575fc;
+            background-color: #333;
         }
 
-        #result {
+        .coming-soon {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .coming-soon h3 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: #000;
+        }
+
+        .coming-soon .options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px; /* Rounded corners */
+            background-color: #ffffff; /* White background */
+            margin: 15px auto; /* Center horizontally */
+            font-family: Arial, sans-serif; /* Font style */
+            transition: box-shadow 0.3s ease; /* Smooth hover effect */
+        }
+
+        .option img {
+            width: 28px;
+            height: 28px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+        }
+
+        .option p {
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        footer {
             margin-top: 20px;
-            text-align: left;
-            font-size: 1em;
-            color: #f8f9fa;
-        }
-
-        #result h2 {
-            margin-top: 20px;
-            color: #ffffff;
-        }
-
-        #result p {
-            color: #d3d3d3;
+            font-size: 0.8em;
+            color: #aaa;
         }
     </style>
 </head>
 <body>
-  <div class="container">
-      <h1>Resolve tus dudas legales en un clic</h1>
-      <p>
-          Subí un documento legal en formato PDF, escribí tu pregunta de forma clara y específica, y obtené
-          respuestas inmediatas basadas en su contenido.
-      </p>
-      <form id="upload-ask-form">
-          <label for="file">Subí un documento en PDF:  Adjuntá un archivo en formato PDF</label>
-          <input type="file" id="file" name="file" required>
 
-          <label for="question">Escribí tu pregunta: Ejemplo: "¿Me permite este poder firmar contratos?"</label>
-          <input type="text" id="question" name="question" placeholder="Escribí tu pregunta aquí" required>
+    <div class="container">
 
-          <button type="button" onclick="submitForm()">Obtené tu respuesta</button>
-      </form>
+      <BR>
+      <BR>
+      <BR>
+      <h1>OperAR Legal</h1>
+      <p>Asistente legal impulsado por inteligencia artificial para simplificar la lectura y análisis de documentos legales argentinos.</p>
 
-      <div id="result"></div>
-  </div>
+        <div class="container-shadow">
+
+        <div class="option">
+            <img src="/static/legal-document.png" alt="Contratos">
+            <p>Análisis de Contratos o Poderes</p>
+        </div>
+
+        <BR>
+
+        <form id="upload-ask-form">
+            <label for="file">Subi tu archivo en pdf</label>
+            <input type="file" id="file" name="file" required>
+
+            <label for="question">Escribí tu pregunta:</label>
+            <textarea id="question" name="question" rows="5" placeholder="Ejemplo: ¿Qué permisos me otorga este poder?" required></textarea>
+
+            <button type="button" onclick="submitForm()">Analizar</button>
+        </form>
+
+        <BR>
+
+        <div id="result"></div>
+
+        <div class="coming-soon">
+            <h3>Próximamente:</h3>
+            <div class="options">
+                <div class="option">
+                    <img src="/static/auction.png" alt="Código Civil">
+                    <p>Análisis del Código Civil</p>
+                </div>
+                <div class="option">
+                    <img src="/static/balance.png" alt="Código Penal">
+                    <p>Análisis del Código Penal</p>
+                </div>
+            </div>
+        </div>
+      </div>
+
+    <div class="container">
+        <footer>Desarrollado por Accesible Legal - Todos los derechos reservados</footer>
+    </div>
+    </div>
 
     <script>
         async function submitForm() {
@@ -130,14 +227,14 @@
                     document.getElementById('result').innerHTML = `<p>Error: ${result.error}</p>`;
                 } else {
                     document.getElementById('result').innerHTML = `
-                        <h2>Extracted Text:</h2>
+                        <h2>Texto Extraído:</h2>
                         <p>${result.text}</p>
-                        <h2>Answer:</h2>
+                        <h2>Respuesta:</h2>
                         <p>${result.answer}</p>
                     `;
                 }
             } catch (error) {
-                document.getElementById('result').innerHTML = `<p>An error occurred: ${error.message}</p>`;
+                document.getElementById('result').innerHTML = `<p>Ocurrió un error: ${error.message}</p>`;
             }
         }
     </script>

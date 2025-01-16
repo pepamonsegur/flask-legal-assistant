@@ -11,7 +11,7 @@ openai.api_key = api_key  # Correctly set the API key for the OpenAI client
 
 def answer_question(document_text, question):
     messages = [
-        {"role": "system", "content": "You are a legal assistant. Answer questions based on the provided document."},
+        {"role": "system", "content": "Sos un asistente legal de argentina, Conteta las preguntas en tono legal y con precision."},
         {"role": "user", "content": f"Document: {document_text}\n\nQuestion: {question}"}
     ]
 

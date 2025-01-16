@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 from utils.ocr import extract_text_from_pdf
 from utils.nlp import answer_question
 from routes import setup_routes
