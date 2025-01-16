@@ -7,14 +7,12 @@ app = Flask(__name__)
 def setup_routes(app):
     @app.route("/")
     def home():
-    #     # return "Flask server is running!"
         return render_template('index.html')
 
-    if __name__ == "__main__":
-        # Get the PORT environment variable from Render or default to 5000
-        # port = int(os.environ.get("PORT", 4000))
-        # app.run(host="0.0.0.0", port=port)
-        app.run(host="0.0.0.0", port=5000)
+    # Vercel requires this to expose the app as a serverless function
+    def handler(event, context):
+        from flask_lambda import FlaskLambda
+        return FlaskLambda(app)(event, context)
 
     @app.route('/upload', methods=['POST'])
     def upload_document():
