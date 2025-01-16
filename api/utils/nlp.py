@@ -41,7 +41,7 @@ def answer_question(document_text, question):
     print(f"Estimated cost for this request: ${estimated_cost:.6f}")
 
     # Log usage and cost to a file
-    log_path = "logs/usage_log.txt"  # Use a subdirectory
+    log_path = "/tmp/usage_log.txt"  # Use a subdirectory
 
     # Ensure the directory exists
     os.makedirs(os.path.dirname(log_path), exist_ok=True)
