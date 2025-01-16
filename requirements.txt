@@ -12,6 +12,8 @@ distro==1.9.0
 fastapi==0.115.6
 filelock==3.16.1
 Flask==3.1.0
+Flask==2.2.3
+flask-lambda==0.1.4
 flask-lambda==0.0.4
 frozenlist==1.5.0
 fsspec==2024.12.0
