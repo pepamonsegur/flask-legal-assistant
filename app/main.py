@@ -7,7 +7,6 @@ app = Flask(__name__)
 
 # Configuración inicial
 app.config['UPLOAD_FOLDER'] = './uploads'
-app.secret_key = ''
 
 # Configurar las rutas
 setup_routes(app)
